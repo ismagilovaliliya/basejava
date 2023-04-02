@@ -4,20 +4,17 @@
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     int size;
-    int startPosition = 0;
 
     void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
-        startPosition = 0;
         size = 0;
     }
 
     void save(Resume r) {
-        if (storage[startPosition] == null) {
-            storage[startPosition] = r;
-            startPosition++;
+        if (storage[size] == null) {
+            storage[size] = r;
             size++;
         }
     }
@@ -32,27 +29,25 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int indexDelete = -1;
+        int indexForDelete = -1;
 
         for (int i = 0; i < size; i++) {
             if (storage[i].toString() == uuid) {
                 storage[i] = null;
-                indexDelete = i;
+                indexForDelete = i;
             }
         }
 
 
-        if (indexDelete >= 0) {
-            for (int i = indexDelete + 1; i < size; i++) {
-                storage[indexDelete] = storage[i];
-                storage[i] = null;
-                indexDelete++;
+        if (indexForDelete >= 0) {
+            for (int i = indexForDelete + 1; i < size; i++) {
+                storage[indexForDelete] = storage[i];
+                indexForDelete++;
             }
 
         }
-
+        storage[size] = null;
         size--;
-        startPosition--;
     }
 
     /**
