@@ -3,52 +3,38 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
-    int size = 0;
+    int size;
     int startPosition = 0;
-    void clear() {
 
-        for( int i = 0; i < size; i++){
+    void clear() {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
-            size = 0;
-            startPosition = 0;
         }
+        startPosition = 0;
+        size = 0;
     }
 
     void save(Resume r) {
-        int i = 0;
-
         if (storage[startPosition] == null) {
             storage[startPosition] = r;
             startPosition++;
             size++;
-        }else{
-            do {
-                if (storage[i] == null) {
-                    startPosition = i;
-                }
-                i++;
-            }while (storage[i] != null);
         }
     }
 
     Resume get(String uuid) {
-        int i;
-        Resume resume = null;
-
-        for(i = 0; i < size; i++){
-            if (storage[i].toString() == uuid)
-            {
-                resume = storage[i];
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString() == uuid) {
+                return storage[i];
             }
         }
-        return resume;
+        return null;
     }
 
     void delete(String uuid) {
+        int indexDelete = -1;
 
-        int indexDelete = 99999;
-
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             if (storage[i].toString() == uuid) {
                 storage[i] = null;
                 indexDelete = i;
@@ -56,12 +42,11 @@ public class ArrayStorage {
         }
 
 
-        if (indexDelete != 99999){
-            for(int i = indexDelete+1; i <size; i++)
-            {
+        if (indexDelete >= 0) {
+            for (int i = indexDelete + 1; i < size; i++) {
                 storage[indexDelete] = storage[i];
                 storage[i] = null;
-                indexDelete ++;
+                indexDelete++;
             }
 
         }
@@ -74,10 +59,9 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int i = 0;
         Resume[] resume = new Resume[size];
 
-        for( i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             resume[i] = storage[i];
         }
         return resume;
