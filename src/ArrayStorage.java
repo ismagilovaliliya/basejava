@@ -13,7 +13,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (storage[size] == null) {
+        if (size < storage.length) {
             storage[size] = r;
             size++;
         }
@@ -33,21 +33,18 @@ public class ArrayStorage {
 
         for (int i = 0; i < size; i++) {
             if (storage[i].toString() == uuid) {
-                storage[i] = null;
                 indexForDelete = i;
             }
         }
 
-
         if (indexForDelete >= 0) {
-            for (int i = indexForDelete + 1; i < size; i++) {
-                storage[indexForDelete] = storage[i];
-                indexForDelete++;
+            for (int i = indexForDelete; i < size-1; i++) {
+                storage[i] = storage[i+1];
             }
-
+            storage[size-1] = null;
+            size--;
         }
-        storage[size] = null;
-        size--;
+
     }
 
     /**
