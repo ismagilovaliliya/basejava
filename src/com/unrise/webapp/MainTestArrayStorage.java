@@ -1,4 +1,4 @@
-package com.unrise;
+package com.unrise.webapp;
 
 import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.storage.ArrayStorage;
