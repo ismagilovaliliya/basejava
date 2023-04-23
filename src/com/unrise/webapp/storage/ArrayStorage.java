@@ -57,7 +57,8 @@ public class ArrayStorage {
         int index = findIndex(uuid);
 
         if (index > -1) {
-            System.arraycopy(storage, index + 1, storage, index, (size - (index + 1)));
+            storage[index] = storage[size - 1];
+            //System.arraycopy(storage, index + 1, storage, index, (size - (index + 1)));
             storage[size - 1] = null;
         } else {
             System.out.println("Uuid: " + uuid + " is not exist ");
@@ -69,9 +70,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resume = Arrays.copyOf(storage, size);
-
-        return resume;
+        return Arrays.copyOf(storage, size);
     }
 
     public int size() {
