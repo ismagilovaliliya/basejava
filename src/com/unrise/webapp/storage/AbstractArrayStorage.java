@@ -2,11 +2,14 @@ package com.unrise.webapp.storage;
 
 import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.model.Storage;
+import com.unrise.webapp.exception.ExistStorageException;
+import com.unrise.webapp.exception.NotExistStorageException;
+import com.unrise.webapp.exception.StorageException;
 
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10000;
+    public static final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
@@ -14,6 +17,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public int size() {
         return size;
     }
+
     public void clear() {
         Arrays.fill(storage, null);
         size = 0;
@@ -25,23 +29,21 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index > -1) {
             storage[index] = r;
         } else {
-            System.out.println("Uuid: " + r.getUuid() + " is not exist ");
+            throw new NotExistStorageException(r.getUuid());
         }
     }
 
     public void save(Resume r) {
         int index = findIndex(r.getUuid());
-        System.out.println("save + " + r +" index " + index);
 
-        if (size == storage.length - 1) {
-            System.out.println("Storage is full");
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
         } else if (index > -1) {
-            System.out.println("Storage is already exist");
+            throw new ExistStorageException(r.getUuid());
         } else {
             insertResume(r);
             size++;
         }
-        System.out.println("save + " + r +" size " + size);
     }
 
     public Resume[] getAll() {
@@ -55,14 +57,15 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(String uuid) {
         int index = findIndex(uuid);
-        if (index == -1) {
-            System.out.println("Resume " + uuid + " not exist");
-            return null;
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
 
     protected abstract int findIndex(String uuid);
+
     protected abstract void insertResume(Resume resume);
+
     protected abstract  void deleteResume(String uuid);
 }
