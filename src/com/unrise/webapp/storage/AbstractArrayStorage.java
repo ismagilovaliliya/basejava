@@ -67,5 +67,5 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void insertResume(Resume resume);
 
-    protected abstract  void deleteResume(String uuid);
+    protected abstract void deleteResume(String uuid);
 }

@@ -19,14 +19,20 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-
     private static final String UUID_NOT_EXIST = "dummy";
 
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
 
+    static {
+        RESUME_1 = new Resume(UUID_1);
+        RESUME_2 = new Resume(UUID_2);
+        RESUME_3 = new Resume(UUID_3);
+        RESUME_4 = new Resume(UUID_4);
+    }
+    
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
@@ -50,7 +56,7 @@ public abstract class AbstractArrayStorageTest {
         assertSize(0);
         Resume[] actual = storage.getAll();
         Resume[] expected = {};
-        Assert.assertEquals(expected, actual);
+        Assert.assertArrayEquals(expected, actual);
 
     }
 
@@ -73,9 +79,7 @@ public abstract class AbstractArrayStorageTest {
         Resume [] actual = storage.getAll();
         Resume [] expected = {RESUME_1,RESUME_2, RESUME_3};
         Assert.assertEquals(3, actual.length);
-        Assert.assertEquals(actual[0], expected[0]);
-        Assert.assertEquals(actual[1], expected[1]);
-        Assert.assertEquals(actual[2], expected[2]);
+        Assert.assertArrayEquals(expected, actual);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -107,7 +111,7 @@ public abstract class AbstractArrayStorageTest {
         storage.clear();
 
         try {
-            for (int i = storage.size() + 1; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            for (int i = storage.size(); i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume());
             }
         }catch (StorageException e){
@@ -118,7 +122,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() throws Exception {
-        Resume RESUME_4 = new Resume("uuid4");
+        Resume RESUME_4 = new Resume(UUID_4);
         storage.update(RESUME_4);
     }
 
