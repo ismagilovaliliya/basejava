@@ -1,4 +1,4 @@
-package ru.javawebinar.basejava;
+package com.unrise.webapp;
 
 import com.unrise.webapp.model.Resume;
 

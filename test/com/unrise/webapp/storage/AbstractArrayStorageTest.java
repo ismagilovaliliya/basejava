@@ -5,12 +5,9 @@ import com.unrise.webapp.exception.NotExistStorageException;
 import com.unrise.webapp.exception.StorageException;
 import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.model.Storage;
-import com.unrise.webapp.storage.AbstractArrayStorage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;

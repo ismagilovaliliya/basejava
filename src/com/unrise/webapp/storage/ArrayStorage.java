@@ -1,9 +1,7 @@
 package com.unrise.webapp.storage;
 
-import com.unrise.webapp.exception.NotExistStorageException;
 import com.unrise.webapp.model.Resume;
-
-import java.util.Arrays;
+import com.unrise.webapp.exception.NotExistStorageException;
 
 /**
  * Array based storage for Resumes

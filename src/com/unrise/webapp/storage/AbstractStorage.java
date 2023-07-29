@@ -1,12 +1,9 @@
 package com.unrise.webapp.storage;
 
+import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.exception.ExistStorageException;
 import com.unrise.webapp.exception.NotExistStorageException;
-import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.model.Storage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AbstractStorage implements Storage{
 
@@ -51,9 +48,9 @@ public abstract class AbstractStorage implements Storage{
         return searchKey;
     }
     protected abstract Object getSearchKey(String uuid);
-    protected abstract Resume getValue(Object key);
-    protected abstract void updateValue(Resume r, Object key);
-    protected abstract void deleteValue(Object key);
+    protected abstract Resume getValue(Object searchKey);
+    protected abstract void updateValue(Resume r, Object searchKey);
+    protected abstract void deleteValue(Object searchKey);
     protected abstract void saveValue(Resume r);
     protected abstract boolean isExist(Object searchKey);
 

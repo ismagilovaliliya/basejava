@@ -1,7 +1,6 @@
 package com.unrise.webapp;
 
 import com.unrise.webapp.model.Resume;
-import com.unrise.webapp.storage.ArrayStorage;
 import com.unrise.webapp.storage.SortedArrayStorage;
 
 import java.io.BufferedReader;
@@ -9,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Interactive test for com.unrise.webapp.storage.ArrayStorage implementation
+ * Interactive test for storage.webapp.unrise.ArrayStorage implementation
  * (just run, no need to understand)
  */
 public class MainArray {

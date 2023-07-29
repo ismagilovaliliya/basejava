@@ -2,9 +2,9 @@ package com.unrise.webapp;
 
 import com.unrise.webapp.model.Resume;
 import com.unrise.webapp.storage.ArrayStorage;
-import com.unrise.webapp.storage.SortedArrayStorage;
+
 /**
- * Test for your com.unrise.webapp.storage.ArrayStorage implementation
+ * Test for your storage.webapp.unrise.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

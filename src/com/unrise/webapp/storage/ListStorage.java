@@ -1,7 +1,6 @@
 package com.unrise.webapp.storage;
 
 import com.unrise.webapp.model.Resume;
-import com.unrise.webapp.model.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
