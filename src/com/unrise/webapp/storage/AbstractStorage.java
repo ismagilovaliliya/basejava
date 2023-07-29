@@ -11,39 +11,52 @@ import java.util.List;
 public abstract class AbstractStorage implements Storage{
 
     public Resume get(String uuid) {
-        int key = findKey(uuid);
-        if (key < 0) {
+        Object searchKey = getExistingSearchKey(uuid);
+        if (isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return getValue(key);
+        return getValue(searchKey);
     }
 
     public void update(Resume r) {
-        int key = findKey(r.getUuid());
-        if (key < 0) {
+        Object searchKey = getExistingSearchKey(r.getUuid());
+        if (isExist(searchKey)) {
             throw new NotExistStorageException(r.getUuid());
         }
-        updateValue(r,key);
+        updateValue(r,searchKey);
     }
 
     public void delete(String uuid){
-        int key = findKey(uuid);
-        deleteValue(key);
+        Object searchKey = getExistingSearchKey(uuid);
+        deleteValue(searchKey);
     }
 
     public void save(Resume r){
-        int key = findKey(r.getUuid());
-        if (key > -1) {
-            throw new ExistStorageException(r.getUuid());
-        }else{
-            saveValue(r);
-        }
-
+        Object searchKey = getNotExistingSearchKey(r.getUuid());
+        saveValue(r);
     }
-    protected abstract int findKey(String uuid);
-    protected abstract Resume getValue(int key);
-    protected abstract void updateValue(Resume r, int key);
-    protected abstract void deleteValue(int key);
+
+    private Object getExistingSearchKey(String uuid){
+        Object searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return searchKey;
+    }
+    private Object getNotExistingSearchKey(String uuid){
+        Object searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
+    }
+    protected abstract Object getSearchKey(String uuid);
+    protected abstract Resume getValue(Object key);
+    protected abstract void updateValue(Resume r, Object key);
+    protected abstract void deleteValue(Object key);
     protected abstract void saveValue(Resume r);
+    protected abstract boolean isExist(Object searchKey);
+
+
 
 }
